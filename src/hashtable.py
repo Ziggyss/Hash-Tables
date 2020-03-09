@@ -44,6 +44,18 @@ class HashTable:
 
 
     def insert(self, key, value):
+
+        index = self._hash_mod(key)
+
+        # If there is already something at that index of the array
+        if self.storage[index] != None:
+            print("Oops! This space is taken...")
+            return
+
+        else:
+            self.storage[index] = LinkedPair(key, value)
+
+
         '''
         Store the value with the given key.
 
@@ -51,11 +63,20 @@ class HashTable:
 
         Fill this in.
         '''
-        pass
+        
 
 
 
     def remove(self, key):
+
+        index = self._hash_mod(key)
+
+        if self.storage[index] == None:
+            print("Sorry, key not found")
+            return
+
+        else:
+            self.storage[index] = None    
         '''
         Remove the value stored with the given key.
 
@@ -63,10 +84,17 @@ class HashTable:
 
         Fill this in.
         '''
-        pass
+      
 
 
     def retrieve(self, key):
+
+        index = self._hash_mod(key)
+
+        if self.storage[index] is None:
+            return None
+        else:
+            return self.storage[index].value
         '''
         Retrieve the value stored with the given key.
 
@@ -74,17 +102,26 @@ class HashTable:
 
         Fill this in.
         '''
-        pass
+        
 
 
     def resize(self):
+        self.capacity *= 2
+
+        new_storage = [None] * self.capacity
+
+        for i in range (self.capacity):
+            new_storage[i] = self.storage[i]
+
+        self.storage = new_storage    
+
         '''
         Doubles the capacity of the hash table and
         rehash all key/value pairs.
 
         Fill this in.
         '''
-        pass
+        
 
 
 
